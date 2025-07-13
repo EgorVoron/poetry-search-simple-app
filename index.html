@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <main>
+            <div class="current-poem">
+                <h2 id="poem-title">Загрузка стихотворения...</h2>
+                <h4 id="poem-author"></h4>
+                <div id="poem-text" class="poem-text"></div>
+                <div id="poem-date" class="poem-date"></div>
+            </div>
+            
+            <div class="recommendations">
+                <h3>Похожие стихотворения</h3>
+                <div class="similar-poems" id="similar-poems">
+                    <div class="loading">Загрузка похожих...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
