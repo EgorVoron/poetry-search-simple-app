@@ -1,4 +1,4 @@
-API_URL = "http://localhost:8001"
+API_URL = "http://84.201.178.218:8000"
 
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
