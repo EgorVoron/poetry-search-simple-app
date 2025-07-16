@@ -9,6 +9,23 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         loadRandomPoem();
     }
+
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    if (searchInput && searchBtn) {
+        function handleSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchPoemsByText(query);
+            }
+        }
+        searchBtn.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    }
 });
 
 function formatDate(dateFrom, dateTo) {
@@ -68,6 +85,29 @@ async function loadSimilarPoems(poemId) {
     } catch (error) {
         console.error('Error loading similar poems:', error);
         similarContainer.innerHTML = '<div class="loading">Could not load recommendations</div>';
+    }
+}
+
+async function searchPoemsByText(queryText) {
+    try {
+        const response = await fetch(`${API_URL}/poems/search?query_text=${encodeURIComponent(queryText)}&poems_num=1`);
+        if (!response.ok) {
+            throw new Error('Failed to search poems');
+        }
+        const poems = await response.json();
+        if (poems && poems.length > 0) {
+            displayPoem(poems[0]);
+            loadSimilarPoems(poems[0].id);
+        } else {
+            document.getElementById('poem-title').textContent = 'Ничего не найдено';
+            document.getElementById('poem-author').textContent = '';
+            document.getElementById('poem-text').textContent = '';
+            document.getElementById('poem-date').style.display = 'none';
+            document.getElementById('similar-poems').innerHTML = '';
+        }
+    } catch (error) {
+        console.error('Error searching poems:', error);
+        document.getElementById('poem-title').textContent = 'Ошибка поиска';
     }
 }
 
