@@ -77,6 +77,10 @@ async function loadSimilarPoems(poemId) {
     
     try {
         const response = await fetch(API_URL + `/poems/similar/${poemId}`);
+        if (response.status === 429) {
+            similarContainer.innerHTML = '<div class="loading">Слишком частые запросы</div>';
+            return;
+        }
         if (!response.ok) {
             throw new Error(`Failed to fetch similar poems for ${poemId}`);
         }
@@ -91,6 +95,14 @@ async function loadSimilarPoems(poemId) {
 async function searchPoemsByText(queryText) {
     try {
         const response = await fetch(`${API_URL}/poems/search?query_text=${encodeURIComponent(queryText)}&poems_num=1`);
+        if (response.status === 429) {
+            document.getElementById('poem-title').textContent = 'Слишком частые запросы';
+            document.getElementById('poem-author').textContent = '';
+            document.getElementById('poem-text').textContent = '';
+            document.getElementById('poem-date').style.display = 'none';
+            document.getElementById('similar-poems').innerHTML = '';
+            return;
+        }
         if (!response.ok) {
             throw new Error('Failed to search poems');
         }
