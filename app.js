@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add random button logic
     const randomBtn = document.getElementById('random-btn');
     if (randomBtn) {
         randomBtn.addEventListener('click', function() {
@@ -49,7 +48,6 @@ function formatDate(dateFrom, dateTo) {
     }
 }
 
-// Add replaceStateOnFirstLoad param
 async function loadRandomPoem(skipPush, replaceStateOnFirstLoad) {
     try {
         const response = await fetch(API_URL + '/poems/random');
