@@ -142,4 +142,7 @@ header h1 {
     .similar-poems {
         flex-direction: column;
     }
+    .random-btn-container {
+        margin-top: 70px;
+    }
 }
