@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const poemId = urlParams.get('poem');
     
     if (poemId) {
-        loadPoemById(poemId);
+        loadPoemById(poemId, true);
     } else {
-        loadRandomPoem();
+        loadRandomPoem(true, true); // true for skipPush, true for replaceStateOnFirstLoad
     }
 
     const searchInput = document.getElementById('search-input');
@@ -26,6 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Add random button logic
+    const randomBtn = document.getElementById('random-btn');
+    if (randomBtn) {
+        randomBtn.addEventListener('click', function() {
+            loadRandomPoem();
+        });
+    }
 });
 
 function formatDate(dateFrom, dateTo) {
@@ -41,7 +49,8 @@ function formatDate(dateFrom, dateTo) {
     }
 }
 
-async function loadRandomPoem() {
+// Add replaceStateOnFirstLoad param
+async function loadRandomPoem(skipPush, replaceStateOnFirstLoad) {
     try {
         const response = await fetch(API_URL + '/poems/random');
         if (!response.ok) {
@@ -50,13 +59,18 @@ async function loadRandomPoem() {
         const poem = await response.json();
         displayPoem(poem);
         loadSimilarPoems(poem.id);
+        if (replaceStateOnFirstLoad) {
+            history.replaceState({}, '', '?poem=' + poem.id);
+        } else if (!skipPush) {
+            history.pushState({}, '', '?poem=' + poem.id);
+        }
     } catch (error) {
         console.error('Error loading random poem:', error);
         document.getElementById('poem-title').textContent = 'Error loading poem';
     }
 }
 
-async function loadPoemById(poemId) {
+async function loadPoemById(poemId, skipPush) {
     try {
         const response = await fetch(API_URL + `/poems/${poemId}`);
         if (!response.ok) {
@@ -65,6 +79,9 @@ async function loadPoemById(poemId) {
         const poem = await response.json();
         displayPoem(poem);
         loadSimilarPoems(poem.id);
+        if (!skipPush) {
+            history.pushState({}, '', '?poem=' + poem.id);
+        }
     } catch (error) {
         console.error(`Error loading poem ${poemId}:`, error);
         document.getElementById('poem-title').textContent = 'Error loading poem';
@@ -110,6 +127,7 @@ async function searchPoemsByText(queryText) {
         if (poems && poems.length > 0) {
             displayPoem(poems[0]);
             loadSimilarPoems(poems[0].id);
+            history.pushState({}, '', '?poem=' + poems[0].id);
         } else {
             document.getElementById('poem-title').textContent = 'Ничего не найдено';
             document.getElementById('poem-author').textContent = '';
@@ -154,7 +172,7 @@ function displaySimilarPoems(poems) {
         poemElement.className = 'similar-poem';
         poemElement.addEventListener('click', (event) => {
             if (event.ctrlKey) {
-                window.open(window.location.href + '?poem=' + poem.id, '_blank');
+                window.open(window.location.origin + '?poem=' + poem.id, '_blank');
             } else {
                 loadPoemById(poem.id);
             }
@@ -173,9 +191,11 @@ function displaySimilarPoems(poems) {
 }
 
 window.addEventListener('popstate', function(event) {
-    if (event.state && event.state.poemId) {
-        loadPoemById(event.state.poemId);
+    const urlParams = new URLSearchParams(window.location.search);
+    const poemId = urlParams.get('poem');
+    if (poemId) {
+        loadPoemById(poemId, true);
     } else {
-        loadRandomPoem();
+        loadRandomPoem(true);
     }
 });
