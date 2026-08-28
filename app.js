@@ -1,4 +1,4 @@
-API_URL = "https://poetry-search.ru:app"
+API_URL = "/api"
 
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
