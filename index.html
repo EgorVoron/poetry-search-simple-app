@@ -14,7 +14,9 @@
         </div>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Семантический поиск по тексту...">
-            <button type="button" id="search-btn">🔍</button>
+            <button type="button" id="search-btn" aria-label="Поиск">
+                <img src="img/search.png" alt="">
+            </button>
         </div>
     </header>
     <div class="container">
@@ -42,22 +44,22 @@
         </div>
 
         <p class="about-lead">
-            Сервис помогает находить схожие по теме и настроению стихотворения: в разделе "Похожие стихотворения" подбираются стихи, похожие на текущее открытое стихотворение, а поисковая строка позволяет находить стихи по описанию или неточному цитированию.<br>В данный момент на сайте представлена русская поэзия XVIII-XIX веков, находящаяся в открытом доступе (более 2000 стихотворений). В будущем планируется расширение каталога.
+            Сервис помогает находить схожие по теме и настроению стихотворения.
         </p>
+
+        <h3 class="about-section-title">Возможности:</h3>
 
         <ul class="about-features">
             <li>
-                <span class="about-feature-icon" aria-hidden="true">🔍</span>
                 <div>
                     <strong>Семантический поиск</strong>
                     <p>Опишите настроение или тему — система подберёт подходящее стихотворения.</p>
                 </div>
             </li>
             <li>
-                <span class="about-feature-icon" aria-hidden="true">✦</span>
                 <div>
                     <strong>Похожие произведения</strong>
-                    <p>Переходите от одного стиха к другому по смысловой близости.</p>
+                    <p>Переходите от одного стихотворения к другому по смысловой близости.</p>
                 </div>
             </li>
         </ul>
@@ -65,6 +67,12 @@
         <div class="about-tip">
             <strong>Подсказка:</strong> Ctrl+клик по похожему стихотворению откроет его в новой вкладке.
         </div>
+
+        <p>
+            В данный момент на сайте представлена русская поэзия XVIII-XIX веков, находящаяся в открытом доступе (более 2000 стихотворений). В будущем планируется расширение каталога.
+        </p>
+
+
 
         <p class="about-credits">
             Корпус подготовлен на основе данных из
@@ -88,6 +96,7 @@
                 <a href="https://github.com/EgorVoron/poetry-search-back" target="_blank" rel="noopener noreferrer">бэкенд (API)</a>,
                 <a href="https://github.com/EgorVoron/poetry-search-simple-app" target="_blank" rel="noopener noreferrer">фронтенд</a>
             </p>
+            <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Maxim Basinski Premium - Flaticon</a>
         </div>
     </dialog>
     <script>
