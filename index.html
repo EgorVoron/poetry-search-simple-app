@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poem Explorer</title>
+    <title>Poetry Search</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
+        <button type="button" id="about-btn" class="header-btn">О проекте</button>
         <div class="random-btn-container">
-            <button id="random-btn">Случайное стихотворение</button>
+            <button type="button" id="random-btn" class="header-btn">Случайное стихотворение</button>
         </div>
-        <div class="search-container" style="position: absolute; top: 20px; right: 20px;">
-            <input type="text" id="search-input" placeholder="Семантический поиск по тексту..." style="padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; min-width: 260px;">
-            <button id="search-btn" style="padding: 6px 12px; margin-left: 4px; border-radius: 4px; border: 1px solid #ccc; background: #f5f5f5; cursor: pointer;">🔍</button>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Семантический поиск по тексту...">
+            <button type="button" id="search-btn">🔍</button>
         </div>
     </header>
     <div class="container">
@@ -34,6 +35,82 @@
         </main>
     </div>
     
-    <script src="app.js"></script>
+    <dialog id="about-modal" class="modal">
+        <button type="button" class="modal-close" id="about-close" aria-label="Закрыть">&times;</button>
+        <div class="about-header">
+            <h2 id="about-title">Poetry Search</h2>
+        </div>
+
+        <p class="about-lead">
+            Сервис помогает находить схожие по теме и настроению стихотворения: в разделе "Похожие стихотворения" подбираются стихи, похожие на текущее открытое стихотворение, а поисковая строка позволяет находить стихи по описанию или неточному цитированию.<br>В данный момент на сайте представлена русская поэзия XVIII-XIX веков, находящаяся в открытом доступе (более 2000 стихотворений). В будущем планируется расширение каталога.
+        </p>
+
+        <ul class="about-features">
+            <li>
+                <span class="about-feature-icon" aria-hidden="true">🔍</span>
+                <div>
+                    <strong>Семантический поиск</strong>
+                    <p>Опишите настроение или тему — система подберёт подходящее стихотворения.</p>
+                </div>
+            </li>
+            <li>
+                <span class="about-feature-icon" aria-hidden="true">✦</span>
+                <div>
+                    <strong>Похожие произведения</strong>
+                    <p>Переходите от одного стиха к другому по смысловой близости.</p>
+                </div>
+            </li>
+        </ul>
+
+        <div class="about-tip">
+            <strong>Подсказка:</strong> Ctrl+клик по похожему стихотворению откроет его в новой вкладке.
+        </div>
+
+        <p class="about-credits">
+            Корпус подготовлен на основе данных из
+            <a href="https://github.com/IlyaGusev/PoetryCorpus/tree/master" target="_blank" rel="noopener noreferrer">Поэтического корпуса русского языка</a>
+            (Ilya Gusev, Apache License 2.0), опубликованных на
+            <a href="https://www.kaggle.com/datasets/greencools/russianpoetry" target="_blank" rel="noopener noreferrer">Kaggle</a>.
+            Тексты произведений, представленные на сайте, находятся в общественном достоянии.
+            Отдельная благодарность Андрею Пономареву за его проект
+            <a href="https://github.com/ponomarevandr/russian_poems_classification" target="_blank" rel="noopener noreferrer">«Классификация русских классических стихов по эпохам»</a>,
+            послуживший вдохновением и источником некоторых идей по предобработке корпуса.
+        </p>
+
+        <div class="about-meta">
+            <p class="about-author">
+                <strong>Автор:</strong> Ворончихин Егор —
+                <a href="https://github.com/EgorVoron" target="_blank" rel="noopener noreferrer">GitHub</a>,
+                <a href="https://t.me/egorvoron" target="_blank" rel="noopener noreferrer">Telegram</a>
+            </p>
+            <p class="about-sources">
+                <strong>Исходный код:</strong>
+                <a href="https://github.com/EgorVoron/poetry-search-back" target="_blank" rel="noopener noreferrer">бэкенд (API)</a>,
+                <a href="https://github.com/EgorVoron/poetry-search-simple-app" target="_blank" rel="noopener noreferrer">фронтенд</a>
+            </p>
+        </div>
+    </dialog>
+    <script>
+        (function () {
+            var modal = document.getElementById('about-modal');
+            var openBtn = document.getElementById('about-btn');
+            var closeBtn = document.getElementById('about-close');
+            if (!modal || !openBtn) return;
+            openBtn.addEventListener('click', function () {
+                modal.showModal();
+            });
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function () {
+                    modal.close();
+                });
+            }
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.close();
+                }
+            });
+        })();
+    </script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
