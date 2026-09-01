@@ -365,6 +365,30 @@ header {
     padding: 20px;
 }
 
+.page-footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px 24px;
+    text-align: center;
+}
+
+.page-footer p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #9a7b59;
+}
+
+.page-footer a {
+    color: #7a5c38;
+    text-decoration: none;
+    border-bottom: 1px solid #c4a882;
+}
+
+.page-footer a:hover {
+    color: #5a3921;
+    border-bottom-color: #5a3921;
+}
+
 @media (max-width: 800px) {
     header {
         grid-template-columns: 1fr 1fr;
