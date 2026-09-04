@@ -91,12 +91,18 @@ header {
     position: relative;
     max-width: 560px;
     width: calc(100% - 40px);
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    margin: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border: none;
     border-radius: 8px;
     padding: 36px 32px 28px;
     background: #fff;
     color: #333;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    box-sizing: border-box;
 }
 
 .modal::backdrop {
@@ -391,24 +397,45 @@ header {
 
 @media (max-width: 800px) {
     header {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         grid-template-areas:
-            "about search"
-            "random random";
+            "about"
+            "search"
+            "random";
+        gap: 10px;
+        padding: 16px;
     }
     #about-btn {
         grid-area: about;
+        justify-self: stretch;
     }
     .random-btn-container {
         grid-area: random;
     }
+    .random-btn-container .header-btn {
+        width: 100%;
+    }
     .search-container {
         grid-area: search;
-        justify-self: end;
-    }
-    .search-container input {
-        min-width: 0;
+        justify-self: stretch;
         width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    #search-input {
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+    }
+    #search-btn {
+        flex-shrink: 0;
+    }
+    .modal {
+        width: calc(100% - 24px);
+        max-height: calc(100vh - 24px);
+        max-height: calc(100dvh - 24px);
+        padding: 28px 20px 20px;
+        margin: 12px auto;
     }
 }
 
