@@ -137,27 +137,10 @@ header {
 }
 
 .about-section-title {
-    display: flex;
-    align-items: center;
-    gap: 14px;
     margin: 0 0 16px;
-    font-size: 0.8em;
-    font-weight: normal;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #9a7b59;
-}
-
-.about-section-title::before,
-.about-section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #d4c4a8);
-}
-
-.about-section-title::after {
-    background: linear-gradient(to left, transparent, #d4c4a8);
+    font-size: 1.05em;
+    font-weight: bold;
+    color: #5a3921;
 }
 
 .about-features {
